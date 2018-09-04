@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="container">
     <simple-tree
       class="tree"
       :treeData="treeData">
@@ -47,10 +47,17 @@ export default {
 </script>
 
 <style lang="stylus" scoped>
-.tree
-  width 50%
-  box-shadow 0 0 2px 1px #3361D8
-  border-radius 5px
-  padding 0.5rem
-  margin 0 auto
+.container
+  position fixed
+  top 10%  
+  bottom 10%
+  left 0
+  right 0
+  .tree
+    width 50%
+    height 100%
+    box-shadow 0 0 2px 1px #3361D8
+    border-radius 5px
+    padding 0.5rem
+    margin 0 auto
 </style>
