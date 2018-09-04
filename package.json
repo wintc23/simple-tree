@@ -1,5 +1,5 @@
 {
-  "name": "simple-tree",
+  "name": "simple-vue-tree",
   "version": "0.1.0",
   "main": "./dist/simple-tree.common.js",
   "scripts": {
