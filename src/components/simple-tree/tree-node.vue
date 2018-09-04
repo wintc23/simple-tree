@@ -265,6 +265,8 @@ export default {
             background #FFC82C
             color red
             font-weight bolder
+      .node-render-content
+        text-align left
   .tree-node-children
     &.children-hide
       display none
