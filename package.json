@@ -12,7 +12,7 @@
     "type": "git",
     "url": "https://github.com/Lushenggang/simple-tree"
   },
-  "main": "dist/simple-tree.common.js",
+  "main": "dist/lib/simple-tree.common.js",
   "unpkg": "dist/simple-tree.umd.min.js",
   "scripts": {
     "serve": "vue-cli-service serve",
