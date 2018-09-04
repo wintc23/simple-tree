@@ -1,6 +1,6 @@
 {
   "name": "simple-vue-tree",
-  "version": "0.1.6",
+  "version": "0.1.5",
   "description": "A simple tree",
   "keywords": [
     "tree",
@@ -17,7 +17,7 @@
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
-    "build-bundle": "vue-cli-service build --target lib --name simple-tree ./src/main.js",
+    "build-bundle": "vue-cli-service build --target lib --name simple-tree ./src/components/index.js",
     "lint": "vue-cli-service lint",
     "prepublishOnly": "yarn build-bundle"
   },
