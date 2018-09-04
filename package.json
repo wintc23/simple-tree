@@ -1,7 +1,7 @@
 {
   "name": "simple-tree",
   "version": "0.1.0",
-  "private": true,
+  "main": "./dist/simple-tree.common.js",
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
@@ -47,6 +47,9 @@
     "plugins": {
       "autoprefixer": {}
     }
+  },
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/"
   },
   "browserslist": [
     "> 1%",
