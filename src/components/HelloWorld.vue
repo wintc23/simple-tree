@@ -34,7 +34,12 @@
 </template>
 
 <script>
+import simpleTree from './simple-tree'
+
 export default {
+  components: {
+    'simple-tree': simpleTree
+  },
   data () {
     return {
       nodeID: 100,
