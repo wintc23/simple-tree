@@ -2,30 +2,9 @@
 
 #### This is a simple component of showing tree data. You can install and use this component in your project by npm or yarn, or you can also setup and run this project to experience the component.
 
----
-## Project setup
-```
-yarn install
-```
-
-### Compiles and hot-reloads for development
-```
-yarn run serve
-```
-
-### Compiles and minifies for production
-```
-yarn run build
-```
-
-### Lints and fixes files
-```
-yarn run lint
-```
-
 ----
 
-## Use in your project
+## Using in your project
 
 ### Step 1
 ```
@@ -117,14 +96,35 @@ Diffrent color lines will be showed before diffrent level nodes according to a c
 If the value is true, a default color list is ['red', 'green', 'blue'].
 And you can also set a customized list to replace the defaule list.
 
+#### maxIndent <font color="yellow">[Number]</font>
+This prop is used to control the indent distance of children nodes. If you don't set prop _indentLimit_, the indent distance only depands on _maxIndent_. Default value: 20.
+
 #### indentLimit <font color="yellow">[Number]</font>
-This prop is used to limit the max indent distance.
-If there are many node levels, the node will overflow the tree box horizontally.
-And you can set this prop to avoid this unexpected effect.
+This prop is used to limit the max indent distance of the tree.
 
-If the width of the tree box is expressed as treeWidth, the max indent distance will be calculated as following.
-```
-maxIndent = value < 100 ? value * treeWidth / 100 : maxIndent
+If there are many node levels, the node will overflow the tree box horizontally.And you can set this prop to avoid this unexpected effect.
 
+Notice: if _indentLimit_ < 100, this prop will be regarded as percentage. In this instance, the value will be _treeWidth _ * _indentLimit_ / 100.
+
+The indent width of each level will be _value_ / _levels_.
+
+---
+## Project setup
 ```
-And then the indent width of every level is (maxIndent/levels, max), where levels means the levels of the tree.
+yarn install
+```
+
+### Compiles and hot-reloads for development
+```
+yarn run serve
+```
+
+### Compiles and minifies for production
+```
+yarn run build
+```
+
+### Lints and fixes files
+```
+yarn run lint
+```
