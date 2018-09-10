@@ -24,7 +24,13 @@ import 'simple-vue-tree/dist/lib/simple-tree.css'
 ```
 
 ### Step 3
-Then you can using this component by use tag 'simple-tree' in the vue template. The API is following, and you can also find simple usages in the directory 'src/componenets/HelloWorld.vue'.
+Then you can using this component by use tag 'simple-tree' in the vue template. 
+```
+  <simple-tree
+    :treeData="treeData">
+  <simple-tree/>
+```
+API is following, and you can also find simple usages in the directory 'src/componenets/HelloWorld.vue'.
 
 #
 
