@@ -87,7 +87,7 @@ This function will be executed when the a node is dragging over another node. If
 
 params: 
  - dragData <font color="yellow">[Object]</font> : the dragging node data. 
- - dropData <font color="yellow">[Object]</font> : the node data which dragging node droped over.
+ - dropData <font color="yellow">[Object]</font> : the node's data where dropped.
  - position <font color="yellow">[String]</font> : _before_, _after_, and _inner_ are possible values, which is the relative position of dragging node and drop node. 
 
 #### indentLine <font color="yellow">[Boolean | Array]</font>
@@ -107,6 +107,87 @@ If there are many node levels, the node will overflow the tree box horizontally.
 Notice: if _indentLimit_ < 100, this prop will be regarded as percentage. In this instance, the value will be _treeWidth _ * _indentLimit_ / 100.
 
 The indent width of each level will be _value_ / _levels_.
+
+#
+
+### Tree events
+
+Notice: the return type 'vNode' means that the value is virtual dom of tree-node.
+Some data of vNode is:
+
+_nodeData_ : data of current node.
+
+_parentData_ : data of current node's parent node. Mostly, _parentData_ is the refrence of your tree-node data. But there is a exceptive case when _parentData_ is the root of the tree. In this case, _parentData_ will be like:
+```
+{
+  isRoot: true,
+  children: [
+    // ...
+  ]
+}
+```
+The property _isRoot_ is only for the 1st level nodes's parentData, and the property _children_ is the reference of your tree data. 
+
+#### _content-click_
+This event will be emited when the node content element is clicked.
+
+__return value__: (event, vNode)
+
+1. __vNode__: virtual dom of current tree node.
+
+#### _content-double-click_
+This event will be emited when the node content element is double clicked.
+
+__return value__: (event, vNode)
+
+1. __vNode__: virtual dom of current tree node.
+
+#### _node-click_
+This event will be emited when the node element is clicked. Though similar to _content-click_, it differs in taht it is fired when a chilren node element is clicked. In most cases, maybe _content-click_ satisfy your demand.
+
+__return value__: (event, vNode)
+
+1. __vNode__: virtual dom of current tree node.
+
+#### _node-double-click_
+This event will be emited when the node element is double clicked. Though similar to _content-double-click_, it differs in taht it is fired when a chilren node element is clicked.
+
+__return value__: (event, vNode)
+
+1. __vNode__: virtual dom of current tree node.
+
+The following content is about tree node dragging event. Maybe _tree-drop_ is enough in most case except that you need customize the dragging effect.
+#### tree-drop
+__return value__: (dragData, dropData, position)
+1. __dragData__: the dragging node's data 
+2. __dropData__: the node's data where dropped.
+3. __position__: the relative position, and the posiible values are _before_, _after_ and _inner_. 
+
+#### tree-drag-start
+__return value__: (event, vNode)
+1. __vNode__: virtual dom of the dragging tree node.
+
+#### tree-drag-end
+__return value__: (event, vNode)
+1. __vNode__: virtual dom of the dragging tree node.
+
+#### tree-drag-enter
+__return value__: (event, vNode)
+1. __vNode__: virtual dom of the node where dropped.
+
+#### tree-drag-over
+__return value__: (event, vNode)
+1. __vNode__: virtual dom of the node where dropped.
+
+#### tree-drag-position
+This event is fired when you choose a drop position. 
+__return value__: (event, position)
+1. __position__: virtual dom of the node where dropped.
+
+#### tree-drag-leave
+__return value__: (event, vNode)
+1. __vNode__: virtual dom of the node where dropped.
+
 
 ---
 ## Project setup
