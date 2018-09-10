@@ -24,7 +24,7 @@ import 'simple-vue-tree/dist/lib/simple-tree.css'
 ```
 
 ### Step 3
-Then you can using this component by use tag 'simple-tree' in the vue template. 
+Then you can using this component by use tag 'simple-tree' in the vue template.  
 ```
   <simple-tree
     :treeData="treeData">
@@ -57,7 +57,7 @@ An array of tree node data like:
 ```
 
 #### props <font color="yellow">[Object]</font>
-The configuration options of node data. Sometimes your node data is not has same name key as default. Default keys are _id_, _title_, and _children_.
+The configuration options of node data. Sometimes your node data is not has same name key as default. Default keys are _id_, _title_, and _children_.  
 You can use this prop to send your node data keys to the component. For example, your node data is like:
 ```
 {
@@ -137,62 +137,58 @@ The property _isRoot_ is only for the 1st level nodes's parentData, and the prop
 #### _content-click_
 This event will be emited when the node content element is clicked.
 
-__return value__: (event, vNode)
-
-1. __vNode__: virtual dom of current tree node.
+- __return value__: (event, vNode)  
+__vNode__: virtual dom of current tree node.
 
 #### _content-double-click_
 This event will be emited when the node content element is double clicked.
 
-__return value__: (event, vNode)
-
-1. __vNode__: virtual dom of current tree node.
+- __return value__: (event, vNode)  
+__vNode__: virtual dom of current tree node.
 
 #### _node-click_
 This event will be emited when the node element is clicked. Though similar to _content-click_, it differs in taht it is fired when a chilren node element is clicked. In most cases, maybe _content-click_ satisfy your demand.
 
-__return value__: (event, vNode)
-
-1. __vNode__: virtual dom of current tree node.
+- __return value__: (event, vNode)  
+__vNode__: virtual dom of current tree node.
 
 #### _node-double-click_
 This event will be emited when the node element is double clicked. Though similar to _content-double-click_, it differs in taht it is fired when a chilren node element is clicked.
 
-__return value__: (event, vNode)
-
-1. __vNode__: virtual dom of current tree node.
+- __return value__: (event, vNode)  
+__vNode__: virtual dom of current tree node.
 
 The following content is about tree node dragging event. Maybe _tree-drop_ is enough in most case except that you need customize the dragging effect.
-#### tree-drop
-__return value__: (dragData, dropData, position)
-1. __dragData__: the dragging node's data 
-2. __dropData__: the node's data where dropped.
-3. __position__: the relative position, and the posiible values are _before_, _after_ and _inner_. 
+#### _tree-drop_
+- __return value__: (dragData, dropData, position)  
+__dragData__: the dragging node's data  
+__dropData__: the node's data where dropped.  
+__position__: the relative position, and the posiible values are _before_, _after_ and _inner_. 
 
-#### tree-drag-start
-__return value__: (event, vNode)
-1. __vNode__: virtual dom of the dragging tree node.
+#### _tree-drag-start_
+- __return value__: (event, vNode)  
+__vNode__: virtual dom of the dragging tree node.
 
-#### tree-drag-end
-__return value__: (event, vNode)
-1. __vNode__: virtual dom of the dragging tree node.
+#### _tree-drag-end_
+- __return value__: (event, vNode)  
+__vNode__: virtual dom of the dragging tree node.
 
-#### tree-drag-enter
-__return value__: (event, vNode)
-1. __vNode__: virtual dom of the node where dropped.
+#### _tree-drag-enter_
+- __return value__: (event, vNode)  
+__vNode__: virtual dom of the node where dropped.
 
-#### tree-drag-over
-__return value__: (event, vNode)
-1. __vNode__: virtual dom of the node where dropped.
+#### _tree-drag-over_
+- __return value__: (event, vNode)  
+__vNode__: virtual dom of the node where dropped.
 
-#### tree-drag-position
+#### _tree-drag-position_
 This event is fired when you choose a drop position. 
-__return value__: (event, position)
-1. __position__: virtual dom of the node where dropped.
+- __return value__: (event, position)  
+__position__: virtual dom of the node where dropped.
 
-#### tree-drag-leave
-__return value__: (event, vNode)
-1. __vNode__: virtual dom of the node where dropped.
+#### _tree-drag-leave_
+- __return value__: (event, vNode)  
+__vNode__: virtual dom of the node where dropped.
 
 
 ---
