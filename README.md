@@ -92,8 +92,8 @@ params:
 This function will be executed when the a node is dragging over another node. If true is returned, you can choose a position to drop the node and the _tree-drop_ event will emitted and you can handle your tree data in the handle function. If false is returned, the _tree-drop_ event will not be emitted.
 
 params: 
- - dragData <font color="yellow">[Object]</font> : the dragging node data. 
- - dropData <font color="yellow">[Object]</font> : the node's data where dropped.
+ - dragVNode <font color="yellow">[Object]</font> : the dragging node's virtual node. 
+ - dropVNode <font color="yellow">[Object]</font> : the node's virtual node where dropped.
  - position <font color="yellow">[String]</font> : _before_, _after_, and _inner_ are possible values, which is the relative position of dragging node and drop node. 
 
 #### indentLine <font color="yellow">[Boolean | Array]</font>
@@ -161,8 +161,8 @@ __vNode__: virtual dom of current tree node.
 The following content is about tree node dragging event. Maybe _tree-drop_ is enough in most case except that you need customize the dragging effect.
 #### _tree-drop_
 - __return value__: (dragData, dropData, position)  
-__dragData__: the dragging node's data  
-__dropData__: the node's data where dropped.  
+__dragVNode__: the dragging node's virtual dom.
+__dropVNode__: the node's virtual dom where dropped.
 __position__: the relative position, and the posiible values are _before_, _after_ and _inner_. 
 
 #### _tree-drag-start_

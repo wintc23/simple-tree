@@ -27,9 +27,6 @@
         </div>
       </div>
     </simple-tree>
-    <Modal>
-
-    </Modal>
   </div>
 </template>
 
