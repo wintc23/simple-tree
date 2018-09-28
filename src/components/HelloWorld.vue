@@ -8,7 +8,8 @@
       @content-click="handleContentClick"
       :indentLine="true"
       :indentLimit="40"
-      :treeData="treeData">
+      :treeData="treeData"
+      draggable>
       <div
         class="node-content"
         slot-scope="{ parentData, data }">
@@ -42,29 +43,30 @@ export default {
       nodeID: 100,
       treeData: [{
         id: 1,
+        title: 'node-1',
         children: [{
           id: 2,
-          title: '昆明',
+          title: 'node-2',
           children: [{
             id: 3,
-            title: '五华'
-          },
-          {
-            id: 3,
-            title: '西山'
+            title: 'node-3'
           },
           {
             id: 4,
-            title: '盘龙'
+            title: 'node-4'
+          },
+          {
+            id: 5,
+            title: 'node-5'
           }]
-        }],
-        title: '云南'
+        }]
       }],
       editingInfo: {
         show: false,
         title: '',
         info: {}
-      }
+      },
+      choose
     }
   },
   methods: {
@@ -77,6 +79,7 @@ export default {
     handleDrop (dragVnode, dropVnode, dropType) {
     },
     handleContentClick (event, vNode) {
+      console.log('click')
     }
   }
 }
@@ -89,6 +92,7 @@ export default {
   bottom 10%
   left 0
   right 0
+  user-select none
   .tree
     width 50%
     height 100%

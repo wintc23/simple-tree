@@ -56,7 +56,8 @@
           "args": "none",
           "ignoreRestSiblings": false
         }
-      ]
+      ],
+      "no-console": "off"
     },
     "parserOptions": {
       "parser": "babel-eslint"
