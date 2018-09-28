@@ -12,22 +12,40 @@
       draggable>
       <div
         class="node-content"
-        slot-scope="{ parentData, data }">
+        slot-scope="{ parentData, data }"
+        @dblclick="editNode(data)"
+        :class="data.id === chooseNode ? 'current-node' : ''">
         <div class="node-name">{{ data.title }}</div>
         <div class="node-divide"></div>
-        <div class="node-menu-icon">
+        <div class="node-menu-icons">
           <Icon
-          type="md-add-circle"
-          title="添加同级节点"/>
+            class="node-menu-icon"
+            @click.stop="addBrother(parentData, data)"
+            type="md-add-circle"
+            title="添加同级节点"/>
           <Icon
+            @click.stop="addChild(data)"
+            class="node-menu-icon"
             type="md-add"
             title="添加子级节点"/>
           <Icon
+            @click.stop="deleteNode(parentData, data)"
+            class="node-menu-icon"
             type="md-trash"
             title="删除节点"/>
         </div>
       </div>
     </simple-tree>
+    <Modal
+      title="输入节点名称"
+      @on-ok="saveNode"
+      @on-cancle="clearEditingInfo"
+      v-model="editingInfo.show">
+      <Input
+        v-model="editingInfo.title"
+        @on-enter="saveNode">
+      </Input>
+    </Modal>
   </div>
 </template>
 
@@ -66,7 +84,7 @@ export default {
         title: '',
         info: {}
       },
-      choose
+      chooseNode: 0
     }
   },
   methods: {
@@ -76,10 +94,65 @@ export default {
     allowDrop (dragVNode, dropVNode, position) {
       return true
     },
-    handleDrop (dragVnode, dropVnode, dropType) {
+    handleDrop (dragVNode, dropVNode, dropType) {
+      let parentData, insertIndex
+      if (dropType === 'before' || dropType === 'after') {
+        parentData = dropVNode.parentData
+        let dropNodeIndex = dropVNode.parentData.children.indexOf(dropVNode.nodeData)
+        insertIndex = dropType === 'before' ? dropNodeIndex : dropNodeIndex + 1
+      } else {
+        parentData = dropVNode.nodeData
+        if (!parentData.children) {
+          this.$set(parentData, 'children', [])
+        }
+        insertIndex = parentData.children.length
+      }
+      let dragNodeIndex = dragVNode.parentData.children.indexOf(dragVNode.nodeData)
+      dragVNode.parentData.children.splice(dragNodeIndex, 1)
+      parentData.children.splice(insertIndex, 0, dragVNode.nodeData)
     },
     handleContentClick (event, vNode) {
-      console.log('click')
+      this.chooseNode = vNode.nodeData.id
+    },
+    addBrother (parentData, data) {
+      let newNode = {
+        id: this.nodeID++,
+        title: ''
+      }
+      let index = parentData.children.indexOf(data)
+      parentData.children.splice(index + 1, 0, newNode)
+      this.editNode(newNode)
+    },
+    addChild (data) {
+      let newNode = {
+        id: this.nodeID++,
+        title: ''
+      }
+      if (!data.children) {
+        this.$set(data, 'children', [])
+      }
+      data.children.unshift(newNode)
+      this.editNode(newNode)
+    },
+    deleteNode (parentData, data) {
+      let index = parentData.children.indexOf(data)
+      parentData.children.splice(index, 1)
+    },
+    editNode (data) {
+      this.editingInfo.show = true
+      this.editingInfo.title = data.title
+      this.editingInfo.info = data
+    },
+    saveNode (data) {
+      this.editingInfo.info.title = this.editingInfo.title
+      this.clearEditingInfo()
+    },
+    clearEditingInfo () {
+      this.editingInfo = {
+        show: false,
+        title: '',
+        info: {}
+      }
     }
   }
 }
@@ -114,15 +187,21 @@ export default {
         overflow-y hidden
       .node-divide
         flex auto
-      .node-menu-icon
+      .node-menu-icons
         display flex
         align-items center
         font-size 1rem
         opacity 0
+        .node-menu-icon
+          cursor pointer
+          &:active
+            position relative
+            left 1px
+            top 1px
       &:hover
         background #ECF2FC
-        .node-menu-icon
+        .node-menu-icons
           opacity 1
-      &.choose
+      &.current-node
         background #D0DEF8
 </style>
