@@ -1,215 +1,87 @@
-<a href="./README.zh-CN.md">中文文档</a> | English
+中文文档 | <a href="./README.en-gb.md">English</a>
 
-# simple-tree
+# simple-tree 树组件文档
 
-#### This is a simple component of showing and handling tree data. You can install and use this component in your project by npm or yarn, or you can also setup and run this project to experience the component.
+### 该组件可用于展示和处理树形数据，可以使用npm或者yarn安装到你的项目中进行使用。当然，你可以clone该项目到本地，运行示例查看该组件效果。（如果你在使用过程中有新的需求，可以给我提issue；如果你在使用过程中发现代码存在bug或者不完善的地方，欢迎指出或者修正后提交PR，谢谢！）
 
 ----
 
-## Using in your project
-
-### Step 1
+## 在项目中使用
+### 第一步：在项目中安装
 ```
 yarn add simple-vue-tree --save
 ```
-or
+或者
 ```
 npm install simple-vue-tree --save
 ```
 
-### Step 2
-In the entry file main.js, you need to import simple-vue-tree and the styles like:  
+### 第二步：在入口文件main.js引入组件
+在入口文件中，你需要引入组件以及组件样式：
 ```
 import 'simple-vue-tree'
 import 'simple-vue-tree/dist/lib/simple-tree.css'
 
 ```
 
-### Step 3
-Then you can using this component by use tag 'simple-tree' in the vue template.  
+### 第三步：使用
+安装、引入完成后，就可以在项目中使用simple-tree组件啦  
+最简单的使用例子，这个例子没有任何样式和操作，仅仅展示了树结构的数据，更多功能您可以继续阅读下面的文档查看/src/components/HelloWorld.vue示例。
 ```
   <simple-tree
     :treeData="treeData">
   <simple-tree/>
 ```
-API is following, and you can also find simple usages in the directory 'src/componenets/HelloWorld.vue'.
+### API
+注
+关于下表中的虚拟DOM的属性说明：  
+对于一个节点的虚拟DOM vNode, 你可以通过vNode.nodeData、vNode.parentData分别访问树节点以及其父节点的数据。
 
-#
+#### Props
 
-### Tree props
-#### treeData <font color="yellow">[Array]</font>
-An array of tree node data like:
+| props | 说明 | 数据类型 | 默认值 | 备注 |
+| ---- | ---- | ---- | ---- | ---- |
+| treeData | 表示树形数据的数组 | Array | [] | 每一项为一个对象，包含id、title、chilren(可不含)等属性，键名可自定义 |
+| props | 用于自定义树形数据键名 | Object | { id: 'id', title: 'title', children: 'children' } | 如果你的用例中，树节点的名称键名为name，那么你需要设置该属性为 {title：'name'} |
+| expand | 显示展开/折叠按钮 | Boolean | true | 如果你不需要展示折叠展开按钮，可以设置此值为false |
+| draggable | 是否允许节点拖动 | Boolean | false | 设置该值允许将树组件节点拖动到树的其他节点的相对位置（前、后、子节点） |
+| allowDrag | 某节点是否允许拖动 | Function | () => true | 参数：你的节点数据data |
+| allowDrop | 是否允许拖动节点在当前节点放下 | Function | () => true | 参数：拖动节点的虚拟DOM dragVNode; 鼠标释放节点的虚拟DOM dropVNode; 相对位置 position, 可选值inner, before, after |
+| indentLine | 控制缩进竖线的显示以及颜色 | Boolean / Array | false | 可以同过传入一个数组来循环控制每一层缩进的颜色，或者设置该值为true启用默认数组['red', 'green', 'blue] |
+| indentLimit | 最大缩进距离 | Number | - | 设置这个值来控制最深层数相对根节点的最大缩进距离，每一层的缩进距离为indentLimit/层数。在层数很多的时候，这个属性对于控制布局非常有用，它能自动调整每一层的缩进距离。值得注意的是，如果该值在100以内，将会按照百分比计算最大缩进距离，100以上则以像素为单位。 |
+| maxIndent | 每一层最大缩进距离 | Number | 20 | 在宽度足够的情况下每一层的最大缩进距离，通常可以不用设置 |
+
+#### 节点内容自定义
+使用功能强大的slot-scope插槽，可访问节点的数据nodeData以及其父节点数据parentData, 可以使用这个功能给每一个节点添加菜单、定制样式等：
 ```
-[
-  {
-    id: 1,
-    title: 'node-1'
-  },
-  {
-    id: 2,
-    title: 'node-2',
-    children: [
-      {
-        id: 3,
-        title: 'node-2-1',
-      }
-    ]
-  }
-]
+<simple-tree :treeData="treeData">
+  <div slot-scope="{ parentData, data }">
+    {{ data.title }}
+  <div>
+</simple-tree>
 ```
 
-#### props <font color="yellow">[Object]</font>
-The configuration options of node data. Sometimes your node data is not has same name key as default. Default keys are _id_, _title_, and _children_.  
-You can use this prop to send your node data keys to the component. For example, your node data is like:
-```
-{
-  id: 1,
-  name: 'node-1'
-}
-```
-You need use this prop like:
-```
-{
-  title: 'name'
-}
-```
-Then the key _name_ will be used as the default key _title_.
+#### tree事件
+| events | 说明 | 参数 | 备注 |
+| ---- | ---- | ---- | ---- |
+| content-click | 单击节点内容时触发 | 事件event, 点击节点的虚拟DOM vNode |- |
+| content-double-click | 双击节点内容时触发 | 事件event，点击节点的虚拟DOM vNode | - |
+| node-click | 单击节点区域时触发，会冒泡到根节点 | 事件event，点击节点的虚拟DOM vNode | 或许大多数时候你需要的是content-click，但是我真的遇到过需要node-click的时候 |
+| node-double-click | 双击节点区域时触发，会冒泡到根节点 | 事件event，点击节点的虚拟DOM vNode | - |
+| tree-drop | 拖动动作合法完成时触发 | 被拖动节点的虚拟DOM dragVNode, 释放节点的虚拟DOM dropNode， 释放的相对位置position | 大多数情况下，拖动操作关注此事件即可，虽然组件也会弹射其它拖动过程中触发的函数 |
+| tree-drag-start | 拖动开始时触发 | 事件event，被拖动节点的虚拟DOM vNode | - |
+| tree-drag-end | 拖动结束时触发 | 被拖动节点的虚拟DOM vNode | - |
+| tree-drag-enter | 拖动进入一个节点时触发 | 被拖动进入节点的虚拟DOM vNode | -  |
+| tree-drag-over | 拖动悬浮在一个节点时触发 | 悬浮所在的节点的虚拟DOM vNode | - |
+| tree-drag-leave | 拖动离开一个悬浮的节点时触发 | 离开的悬浮节点的虚拟DOM vNode | - |
+| tree-drag-position | 拖动到合法释放位置时触发 | event， position（可选值inner, before, after）| -|
 
-#### expand <font color="yellow">[Boolean]</font>
-Show expand icon. Default value: true.
+----------
 
-#### nodeClass <font color="yellow">[Object, Array, String]</font>
-The class of node element.
+## 安装本项目并查看示例
+首先clone本项目到本地，然后执行以下指令。注意：本例基于Vue-cli 3.0。
 
-#### draggable <font color="yellow">[Boolean]</font>
-You can drag and drop tree nodes by adding a draggable attribute. Default value: false.
-
-#### allowDrag <font color="yellow">[function]</font>
-This function will be executed before dragging a node. If false is returned, the node can not be dragged.
-
-params: 
- - data <font color="yellow">[Object]</font> : your node data Object.
-
-#### allowDrop <font color="yellow">[function]</font>
-This function will be executed when the a node is dragging over another node. If true is returned, you can choose a position to drop the node and the _tree-drop_ event will emitted and you can handle your tree data in the handle function. If false is returned, the _tree-drop_ event will not be emitted.
-
-params: 
- - dragVNode <font color="yellow">[Object]</font> : the dragging node's virtual node. 
- - dropVNode <font color="yellow">[Object]</font> : the node's virtual node where dropped.
- - position <font color="yellow">[String]</font> : _before_, _after_, and _inner_ are possible values, which is the relative position of dragging node and drop node. 
-
-#### indentLine <font color="yellow">[Boolean | Array]</font>
-This prop is used to show a vertical line before the same level nodes.
-Diffrent color lines will be showed before diffrent level nodes according to a color list.
-If the value is true, a default color list is ['red', 'green', 'blue'].
-And you can also set a customized list to replace the defaule list.
-
-#### maxIndent <font color="yellow">[Number]</font>
-This prop is used to control the indent distance of children nodes. If you don't set prop _indentLimit_, the indent distance only depands on _maxIndent_. Default value: 20.
-
-#### indentLimit <font color="yellow">[Number]</font>
-This prop is used to limit the max indent distance of the tree.
-
-If there are many node levels, the node will overflow the tree box horizontally.And you can set this prop to avoid this unexpected effect.
-
-Notice: if _indentLimit_ < 100, this prop will be regarded as percentage. In this instance, the value will be _treeWidth _ * _indentLimit_ / 100.
-
-The indent width of each level will be _value_ / _levels_.
-
-#
-
-### Tree events
-
-Notice: the return type 'vNode' means that the value is virtual dom of tree-node.
-Some data of vNode is:
-
-_nodeData_ : data of current node.
-
-_parentData_ : data of current node's parent node. Mostly, _parentData_ is the refrence of your tree-node data. But there is a exceptive case when _parentData_ is the root of the tree. In this case, _parentData_ will be like:
-```
-{
-  isRoot: true,
-  children: [
-    // ...
-  ]
-}
-```
-The property _isRoot_ is only for the 1st level nodes's parentData, and the property _children_ is the reference of your tree data. 
-
-#### _content-click_
-This event will be emited when the node content element is clicked.
-
-- __return value__: (event, vNode)  
-__vNode__: virtual dom of current tree node.
-
-#### _content-double-click_
-This event will be emited when the node content element is double clicked.
-
-- __return value__: (event, vNode)  
-__vNode__: virtual dom of current tree node.
-
-#### _node-click_
-This event will be emited when the node element is clicked. Though similar to _content-click_, it differs in taht it is fired when a chilren node element is clicked. In most cases, maybe _content-click_ satisfy your demand.
-
-- __return value__: (event, vNode)  
-__vNode__: virtual dom of current tree node.
-
-#### _node-double-click_
-This event will be emited when the node element is double clicked. Though similar to _content-double-click_, it differs in taht it is fired when a chilren node element is clicked.
-
-- __return value__: (event, vNode)  
-__vNode__: virtual dom of current tree node.
-
-The following content is about tree node dragging event. Maybe _tree-drop_ is enough in most case except that you need customize the dragging effect.
-#### _tree-drop_
-- __return value__: (dragData, dropData, position)  
-__dragVNode__: the dragging node's virtual dom.
-__dropVNode__: the node's virtual dom where dropped.
-__position__: the relative position, and the posiible values are _before_, _after_ and _inner_. 
-
-#### _tree-drag-start_
-- __return value__: (event, vNode)  
-__vNode__: virtual dom of the dragging tree node.
-
-#### _tree-drag-end_
-- __return value__: (event, vNode)  
-__vNode__: virtual dom of the dragging tree node.
-
-#### _tree-drag-enter_
-- __return value__: (event, vNode)  
-__vNode__: virtual dom of the node where dropped.
-
-#### _tree-drag-over_
-- __return value__: (event, vNode)  
-__vNode__: virtual dom of the node where dropped.
-
-#### _tree-drag-position_
-This event is fired when you choose a drop position. 
-- __return value__: (event, position)  
-__position__: virtual dom of the node where dropped.
-
-#### _tree-drag-leave_
-- __return value__: (event, vNode)  
-__vNode__: virtual dom of the node where dropped.
-
-
----
-## Project setup
 ```
 yarn install
-```
-
-### Compiles and hot-reloads for development
-```
-yarn run serve
-```
-
-### Compiles and minifies for production
-```
-yarn run build
-```
-
-### Lints and fixes files
-```
-yarn run lint
+yarn serve
 ```
