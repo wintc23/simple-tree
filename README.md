@@ -1,6 +1,8 @@
+<a href="./README.zh-CN.md">中文文档</a> | English
+
 # simple-tree
 
-#### This is a simple component of showing tree data. You can install and use this component in your project by npm or yarn, or you can also setup and run this project to experience the component.
+#### This is a simple component of showing and handling tree data. You can install and use this component in your project by npm or yarn, or you can also setup and run this project to experience the component.
 
 ----
 

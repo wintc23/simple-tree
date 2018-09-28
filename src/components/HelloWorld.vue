@@ -2,14 +2,8 @@
   <div class="container">
     <simple-tree
       class="tree"
-      :allowDrag="allowDrag"
-      :allowDrop="allowDrop"
-      @tree-drop="handleDrop"
-      @content-click="handleContentClick"
-      :indentLine="true"
-      :indentLimit="40"
       :treeData="treeData"
-      draggable>
+      >
       <div
         class="node-content"
         slot-scope="{ parentData, data }"
