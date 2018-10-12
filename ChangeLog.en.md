@@ -1,5 +1,5 @@
 # Change Log
-## v1.0.1
+## v1.0.0
 - Change the default drop position notify to English which will be showed when you drag the node. And more impotantly, you can customize the notify now.
 
 -----
