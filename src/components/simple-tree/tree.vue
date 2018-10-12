@@ -11,6 +11,7 @@
       :draggable="draggable"
       :indentLineColor="indentLineColor"
       :indentWidth="indentWidth"
+      :dragNote="dragNote"
       :key="idx">
     </tree-node>
   </div>
@@ -54,6 +55,16 @@ export default {
     maxIndent: {
       type: Number,
       default: 20
+    },
+    dragNote: {
+      type: Object,
+      default: () => {
+        return {
+          before: 'As previous node',
+          after: 'As next node',
+          inner: 'As child node'
+        }
+      }
     }
   },
   components: {

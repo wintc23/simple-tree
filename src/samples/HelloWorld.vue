@@ -9,6 +9,7 @@
       :indentLine="true"
       :indentLimit="40"
       :treeData="treeData"
+      :dragNote="dragNote"
       draggable>
       <div
         class="node-content"
@@ -85,7 +86,12 @@ export default {
         title: '',
         info: {}
       },
-      chooseNode: 0
+      chooseNode: 0,
+      dragNote: {
+        before: '拖为前置节点',
+        after: '拖为后置节点',
+        inner: '拖为子节点'
+      }
     }
   },
   methods: {

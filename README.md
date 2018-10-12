@@ -59,6 +59,7 @@ import 'simple-vue-tree/dist/lib/simple-tree.css'
 | draggable | 是否允许节点拖动 | Boolean | false | 设置该值允许将树组件节点拖动到树的其他节点的相对位置（前、后、子节点） |
 | allowDrag | 某节点是否允许拖动 | Function | () => true | 参数：你的节点数据data |
 | allowDrop | 是否允许拖动节点在当前节点放下 | Function | () => true | 参数：拖动节点的虚拟DOM dragVNode; 鼠标释放节点的虚拟DOM dropVNode; 相对位置 position, 可选值inner, before, after |
+| dragNote | 拖动时释放位置的文字提示 | Object | { before: 'As previous node', after: 'As next node', inner: 'As child node'} | 自定义时需要提供before、after、inner对应的提示 |
 | indentLine | 控制缩进竖线的显示以及颜色 | Boolean / Array | false | 可以同过传入一个数组来循环控制每一层缩进的颜色，或者设置该值为true启用默认数组['red', 'green', 'blue] |
 | indentLimit | 最大缩进距离 | Number | - | 设置这个值来控制最深层数相对根节点的最大缩进距离，每一层的缩进距离为indentLimit/层数。在层数很多的时候，这个属性对于控制布局非常有用，它能自动调整每一层的缩进距离。值得注意的是，如果该值在100以内，将会按照百分比计算最大缩进距离，100以上则以像素为单位。 |
 | maxIndent | 每一层最大缩进距离 | Number | 20 | 在宽度足够的情况下每一层的最大缩进距离，通常可以不用设置 |

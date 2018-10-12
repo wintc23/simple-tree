@@ -37,8 +37,8 @@
               'drop': this.dropPosition === 'before'
             }"
             @dragenter="dragPosition('before')"
-            @dragleave="dragPosition('')">
-            拖为前置节点
+            @dragleave="dragPosition('')"
+            v-text="dragNote.before">
           </div>
         </div>
         <node-content class="node-render-content"></node-content>
@@ -52,8 +52,8 @@
             }"
             @dragenter="dragPosition('after')"
             @dragleave="dragPosition('')"
-            v-if="this.dragInfo.after">
-            拖为后置节点
+            v-if="this.dragInfo.after"
+            v-text="dragNote.after">
           </div>
           <div
             :class="{
@@ -62,8 +62,8 @@
             }"
             @dragenter="dragPosition('inner')"
             @dragleave="dragPosition('')"
-            v-if="this.dragInfo.inner">
-            拖为子节点
+            v-if="this.dragInfo.inner"
+            v-text="dragNote.inner">
           </div>
         </div>
       </div>
@@ -87,6 +87,7 @@
         :expand="expand"
         :indentLineColor="indentLineColor"
         :indentWidth="indentWidth"
+        :dragNote="dragNote"
         :props="props">
       </tree-node>
     </div>
@@ -116,7 +117,8 @@ export default {
     dragInfo: Object,
     draggable: Boolean,
     indentLineColor: Array,
-    indentWidth: Number
+    indentWidth: Number,
+    dragNote: Object
   },
   components: {
     'node-content': {

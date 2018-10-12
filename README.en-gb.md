@@ -6,6 +6,10 @@
 
 ----
 
+## Preview
+![demo](./src/assets/tree-sample.gif)
+
+
 ## Using in your project
 
 ### Step 1
@@ -98,6 +102,15 @@ params:
  - dropVNode <font color="yellow">[Object]</font> : the node's virtual node where dropped.
  - position <font color="yellow">[String]</font> : _before_, _after_, and _inner_ are possible values, which is the relative position of dragging node and drop node. 
 
+#### dragNote <font color="yellow">[Object]</font>
+This prop will change the drop position notify when you drag the node. You can customize the notify which the default value is 
+```
+{
+  before: 'As previous node',
+  after: 'As next node',
+  inner: 'As child node'
+}
+```
 #### indentLine <font color="yellow">[Boolean | Array]</font>
 This prop is used to show a vertical line before the same level nodes.
 Diffrent color lines will be showed before diffrent level nodes according to a color list.
