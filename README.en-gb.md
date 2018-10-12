@@ -1,5 +1,7 @@
 <a href="./README.md">中文文档</a> | English
 
+<a href="./ChangeLog.en.md">Change Log</a>
+
 # simple-tree
 
 #### This is a simple component of showing and handling tree data. You can install and use this component in your project by npm or yarn, or you can also setup and run this project to experience the component.

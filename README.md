@@ -1,5 +1,7 @@
 中文文档 | <a href="./README.en-gb.md">English</a>
 
+<a href="./ChangeLog.ch_zh.md">更新日志</a>
+
 # simple-tree 树组件文档
 
  该组件可用于展示和处理树形数据，可以使用npm或者yarn安装到你的项目中进行使用。当然，你可以clone该项目到本地，运行示例查看该组件效果。  
