@@ -29,7 +29,8 @@ export default {
         return {
           children: 'children',
           title: 'title',
-          id: 'id'
+          id: 'id',
+          expanded: 'expanded'
         }
       }
     },

@@ -18,7 +18,7 @@
       @mouseleave="hover=false"
       ref="treeContent"
       @dbclick="contentDoubleClick">
-      <div class="expand-button" @click.stop="expanded=!expanded" v-if="expand">
+      <div class="expand-button" @click.stop="clickExpand" v-if="expand">
         <template v-if="nodeData[props.children] && nodeData[props.children].length">
           <Icon type="ios-arrow-dropdown" v-if="expanded"/>
           <Icon type="ios-arrow-dropright" v-else/>
@@ -185,6 +185,11 @@ export default {
       this.parentData = parent.nodeData
     }
   },
+  mounted () {
+    if (this.nodeData.hasOwnProperty(this.props.expanded)) {
+      this.expanded = this.nodeData[this.props.expanded]
+    }
+  },
   methods: {
     nodeClick (event) {
       this.tree.$emit('node-click', event, this)
@@ -197,6 +202,10 @@ export default {
     },
     contentDoubleClick (event) {
       this.tree.$emit('content-double-click', event, this)
+    },
+    clickExpand (event) {
+      this.expanded = !this.expanded
+      this.tree.$emit('expand-button-click', event, this)
     },
     /**
      * 拖动相关接口，涉及多个节点，此处弹射事件均在tree.vue中处理
