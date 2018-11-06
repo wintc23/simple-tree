@@ -175,6 +175,9 @@ This event will be emited when the node element is double clicked. Though simila
 - __return value__: (event, vNode)  
 __vNode__: virtual dom of current tree node.
 
+#### _expand-button-click_
+This event will be fired when click the expanded button.
+
 The following content is about tree node dragging event. Maybe _tree-drop_ is enough in most case except that you need customize the dragging effect.
 #### _tree-drop_
 - __return value__: (dragVNode, dropVNode, position)  

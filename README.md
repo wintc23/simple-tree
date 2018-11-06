@@ -83,6 +83,7 @@ import 'simple-vue-tree/dist/lib/simple-tree.css'
 | content-double-click | 双击节点内容时触发 | 事件event，点击节点的虚拟DOM vNode | - |
 | node-click | 单击节点区域时触发，会冒泡到根节点 | 事件event，点击节点的虚拟DOM vNode | 或许大多数时候你需要的是content-click，但是我真的遇到过需要node-click的时候 |
 | node-double-click | 双击节点区域时触发，会冒泡到根节点 | 事件event，点击节点的虚拟DOM vNode | - |
+| expand-button-click | 点击展开/折叠状态时触发 | 事件event，点击的节点虚拟DOM | - |
 | tree-drop | 拖动动作合法完成时触发 | 被拖动节点的虚拟DOM dragVNode, 释放节点的虚拟DOM dropNode， 释放的相对位置position | 大多数情况下，拖动操作关注此事件即可，虽然组件也会弹射其它拖动过程中触发的函数 |
 | tree-drag-start | 拖动开始时触发 | 事件event，被拖动节点的虚拟DOM vNode | - |
 | tree-drag-end | 拖动结束时触发 | 被拖动节点的虚拟DOM vNode | - |
