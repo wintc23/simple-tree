@@ -94,7 +94,7 @@
   </div>
 </template>
 
-<script type="text/jsx">
+<script>
 export default {
   name: 'tree-node',
   props: {
@@ -160,7 +160,7 @@ export default {
       tree: null,
       parentData: null,
       level: 1,
-      expanded: true,
+      expanded: this.nodeData.hasOwnProperty(this.props.expanded) ? this.nodeData[this.props.expanded] : true,
       dragging: false,
       dropPosition: '',
       hover: false
@@ -183,11 +183,6 @@ export default {
       this.tree = parent.tree
       this.level = parent.level + 1
       this.parentData = parent.nodeData
-    }
-  },
-  mounted () {
-    if (this.nodeData.hasOwnProperty(this.props.expanded)) {
-      this.expanded = this.nodeData[this.props.expanded]
     }
   },
   methods: {

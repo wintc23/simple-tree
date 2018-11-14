@@ -64,6 +64,7 @@ export default {
       treeData: [{
         id: 1,
         title: 'node-1',
+        expanded: false,
         children: [{
           id: 2,
           title: 'node-2',
