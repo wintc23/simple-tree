@@ -1,5 +1,8 @@
 # Change Log
 
+## v1.1.4
+- import style of iview is changed, but it don't have any influence to the usage of this componet.
+
 ## v1.1.2
 - The expanded state of each node can be controled, and the event will be fired when click the expanded button.
 
