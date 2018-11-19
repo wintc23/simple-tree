@@ -28,6 +28,7 @@
     "dist"
   ],
   "dependencies": {
+    "babel-plugin-import": "^1.11.0",
     "iview": "^3.1.2",
     "vue": "^2.5.17"
   },
