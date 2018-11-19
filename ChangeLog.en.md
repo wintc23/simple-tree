@@ -1,5 +1,8 @@
 # Change Log
 
+## v1.1.6
+- Fix bug.
+
 ## v1.1.4
 - Import style of iview is changed, but it don't have any influence to the usage of this componet.
 
