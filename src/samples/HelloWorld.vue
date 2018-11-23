@@ -1,6 +1,12 @@
 <template>
   <div class="container">
-    <div>{{showPageList}}</div>
+    <div class="header">
+      <div>根节点</div>
+      <div v-for="item of showPageList" :key="item.id">
+        {{ item.title }}
+      </div>
+      
+    </div>
     <simple-tree
       ref="simpleTree"
       :splitPage="true"
@@ -154,14 +160,18 @@ export default {
   bottom 10%
   left 0
   right 0
+  width 50%
   user-select none
+  box-shadow 0 0 2px 1px #3361D8
+  border-radius 5px
+  margin 0 auto
+  .header
+    border 1px solid red
+    height 2rem
+    display flex
+    align-items center
   .tree
-    width 50%
-    height 100%
-    box-shadow 0 0 2px 1px #3361D8
-    border-radius 5px
     padding 0.5rem
-    margin 0 auto
     .node-content
       display flex
       box-shadow 0 0 1px 0 #A1BFFC
