@@ -12,6 +12,10 @@
       :indentLineColor="indentLineColor"
       :indentWidth="indentWidth"
       :dragNote="dragNote"
+      :splitPage="splitPage"
+      :splitInfo="splitInfo"
+      :showPageList="showPageList"
+      :async="async"
       :key="idx">
     </tree-node>
   </div>
@@ -34,6 +38,7 @@ export default {
         }
       }
     },
+    refreshShowPage: Function,
     nodeClass: [Object, Array, String],
     expand: {
       type: Boolean,
@@ -61,11 +66,23 @@ export default {
       type: Object,
       default: () => {
         return {
-          before: 'As previous node',
-          after: 'As next node',
-          inner: 'As child node'
+          before: 'relative position: before',
+          after: 'relative position: after',
+          inner: 'relative position: inner'
         }
       }
+    },
+    splitPage: {
+      type: Boolean,
+      default: false
+    },
+    splitInfo: {
+      type: Object,
+      default: () => {}
+    },
+    async: {
+      type: Boolean,
+      default: false
     }
   },
   components: {
@@ -83,7 +100,8 @@ export default {
         before: true,
         after: true,
         inner: true
-      }
+      },
+      showPageList: []
     }
   },
   computed: {
@@ -102,6 +120,7 @@ export default {
       return colorList
     },
     indentWidth () {
+      if (this.splitPage) return 0
       if (!this.indentLimit || this.indentLimit <= 0 || !this.treeWidth) {
         return this.maxIndent
       }
@@ -234,6 +253,35 @@ export default {
         level = Math.max(nodeLevel, level)
       }
       return level + 1
+    },
+    pushToShow (data) {
+      if (this.showPageList.includes(data.id)) return
+      this.showPageList.push(data.id)
+      this.refreshShowPage && this.refreshShowPage(this.getShowList())
+    },
+    jumpBack (id) {
+      let idx = this.showPageList.indexOf(id)
+      if (idx !== -1) {
+        this.showPageList.splice(idx + 1)
+      }
+      this.refreshShowPage && this.refreshShowPage(this.getShowList())
+    },
+    getShowList () {
+      let list = []
+      let dataList = this.treeData
+      for (let id of this.showPageList) {
+        let item = dataList.find(data => data.id === id)
+        if (item) {
+          list.push({
+            title: item[this.props.title],
+            id: item[this.props.id]
+          })
+          dataList = item[this.props.children] || []
+        } else {
+          break
+        }
+      }
+      return list
     },
     registerObserver () {
       let MutationObserver = window.MutationObserver || window.WebKitMutationObserver || window.MozMutationObserver

@@ -1,16 +1,15 @@
 <template>
   <div class="container">
+    <div>{{showPageList}}</div>
     <simple-tree
+      ref="simpleTree"
+      :splitPage="true"
       class="tree"
-      :allowDrag="allowDrag"
-      :allowDrop="allowDrop"
-      @tree-drop="handleDrop"
       @content-click="handleContentClick"
-      :indentLine="true"
-      :indentLimit="40"
       :treeData="treeData"
-      :dragNote="dragNote"
-      draggable>
+      :refreshShowPage="refreshShowPage"
+      :expand="false"
+      @expand-button-click="expandClick">
       <div
         class="node-content"
         slot-scope="{ parentData, data }"
@@ -18,36 +17,8 @@
         :class="data.id === chooseNode ? 'current-node' : ''">
         <div class="node-name">{{ data.title }}</div>
         <div class="node-divide"></div>
-        <div class="node-menu-icons">
-          <Icon
-            class="node-menu-icon"
-            @click.stop="addBrother(parentData, data)"
-            type="md-add-circle"
-            title="添加同级节点"/>
-          <Icon
-            @click.stop="addChild(data)"
-            class="node-menu-icon"
-            type="md-add"
-            title="添加子级节点"/>
-          <Icon
-            @click.stop="deleteNode(parentData, data)"
-            class="node-menu-icon"
-            type="md-trash"
-            title="删除节点"/>
-        </div>
       </div>
     </simple-tree>
-    <Modal
-      title="输入节点名称"
-      @on-ok="saveNode"
-      @on-cancle="clearEditingInfo"
-      v-model="editingInfo.show">
-      <Input
-        ref="titleInput"
-        v-model="editingInfo.title"
-        @on-enter="saveNode">
-      </Input>
-    </Modal>
   </div>
 </template>
 
@@ -61,6 +32,7 @@ export default {
   data () {
     return {
       nodeID: 100,
+      showPageList: [],
       treeData: [{
         id: 1,
         title: 'node-1',
@@ -164,6 +136,12 @@ export default {
         title: '',
         info: {}
       }
+    },
+    refreshShowPage (list) {
+      this.showPageList = list
+    },
+    expandClick (event, vNode) {
+      this.$refs.simpleTree.pushToShow(vNode.nodeData)
     }
   }
 }

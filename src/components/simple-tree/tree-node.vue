@@ -3,8 +3,9 @@
     class="tree-node"
     :class="nodeClass"
     @dblclick="nodeDoubleClick"
-    @click="nodeClick">
+    @click="nodeClick" v-if="showNode">
     <div
+      v-if="!showChildOnly"
       class="tree-node-content"
       :draggable="canBeDrag"
       @dragstart.stop="dragStart"
@@ -74,8 +75,8 @@
         'children-hide': dragging
       }"
       :style="childrenStyle"
-      v-if="nodeData[props.children] && nodeData[props.children].length"
-      v-show="expanded">
+      v-if="(nodeData[props.children] && nodeData[props.children].length)"
+      v-show="showNode || expanded">
       <tree-node
         v-for="(child, idx) of nodeData[props.children]"
         :key="idx"
@@ -87,6 +88,9 @@
         :expand="expand"
         :indentLineColor="indentLineColor"
         :indentWidth="indentWidth"
+        :splitInfo="splitInfo"
+        :splitPage="splitPage"
+        :showPageList="showPageList"
         :dragNote="dragNote"
         :props="props">
       </tree-node>
@@ -118,7 +122,11 @@ export default {
     draggable: Boolean,
     indentLineColor: Array,
     indentWidth: Number,
-    dragNote: Object
+    dragNote: Object,
+    splitPage: Boolean,
+    splitInfo: Object,
+    async: Boolean,
+    showPageList: Array
   },
   components: {
     'node-content': {
@@ -153,6 +161,27 @@ export default {
         style.borderLeft = `1px ${this.hover ? 'solid' : 'dotted'} ${color}`
       }
       return style
+    },
+    showNode () {
+      if (!this.splitPage) return true
+      if (this.showPageList.length) {
+        if (this.showPageList.includes(this.nodeData.id)) {
+          return true
+        } else if (this.showPageList[this.showPageList.length - 1] === this.parentData.id) {
+          return true
+        }
+        return false
+      } else {
+        if (this.$parent.isTree) return true
+        return false
+      }
+    },
+    showChildOnly () {
+      if (!this.showNode) return false
+      if (this.showPageList.includes(this.nodeData.id)) {
+        return true
+      }
+      return false
     }
   },
   data () {
@@ -201,6 +230,9 @@ export default {
     clickExpand (event) {
       this.expanded = !this.expanded
       this.tree.$emit('expand-button-click', event, this)
+    },
+    refreshNodeData (data, children) {
+      this.$set(data, this.props.children, children)
     },
     /**
      * 拖动相关接口，涉及多个节点，此处弹射事件均在tree.vue中处理
