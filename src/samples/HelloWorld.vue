@@ -1,21 +1,16 @@
 <template>
   <div class="container">
-    <div class="header">
-      <div>根节点</div>
-      <div v-for="item of showPageList" :key="item.id">
-        {{ item.title }}
-      </div>
-      
-    </div>
     <simple-tree
-      ref="simpleTree"
-      :splitPage="true"
       class="tree"
+      :allowDrag="allowDrag"
+      :allowDrop="allowDrop"
+      @tree-drop="handleDrop"
       @content-click="handleContentClick"
+      :indentLine="true"
+      :indentLimit="40"
       :treeData="treeData"
-      :refreshShowPage="refreshShowPage"
-      :expand="false"
-      @expand-button-click="expandClick">
+      :dragNote="dragNote"
+      draggable>
       <div
         class="node-content"
         slot-scope="{ parentData, data }"
@@ -23,8 +18,36 @@
         :class="data.id === chooseNode ? 'current-node' : ''">
         <div class="node-name">{{ data.title }}</div>
         <div class="node-divide"></div>
+        <div class="node-menu-icons">
+          <Icon
+            class="node-menu-icon"
+            @click.stop="addBrother(parentData, data)"
+            type="md-add-circle"
+            title="添加同级节点"/>
+          <Icon
+            @click.stop="addChild(data)"
+            class="node-menu-icon"
+            type="md-add"
+            title="添加子级节点"/>
+          <Icon
+            @click.stop="deleteNode(parentData, data)"
+            class="node-menu-icon"
+            type="md-trash"
+            title="删除节点"/>
+        </div>
       </div>
     </simple-tree>
+    <Modal
+      title="输入节点名称"
+      @on-ok="saveNode"
+      @on-cancle="clearEditingInfo"
+      v-model="editingInfo.show">
+      <Input
+        ref="titleInput"
+        v-model="editingInfo.title"
+        @on-enter="saveNode">
+      </Input>
+    </Modal>
   </div>
 </template>
 
@@ -38,7 +61,6 @@ export default {
   data () {
     return {
       nodeID: 100,
-      showPageList: [],
       treeData: [{
         id: 1,
         title: 'node-1',
@@ -142,12 +164,6 @@ export default {
         title: '',
         info: {}
       }
-    },
-    refreshShowPage (list) {
-      this.showPageList = list
-    },
-    expandClick (event, vNode) {
-      this.$refs.simpleTree.pushToShow(vNode.nodeData)
     }
   }
 }
@@ -160,18 +176,14 @@ export default {
   bottom 10%
   left 0
   right 0
-  width 50%
   user-select none
-  box-shadow 0 0 2px 1px #3361D8
-  border-radius 5px
-  margin 0 auto
-  .header
-    border 1px solid red
-    height 2rem
-    display flex
-    align-items center
   .tree
+    width 50%
+    height 100%
+    box-shadow 0 0 2px 1px #3361D8
+    border-radius 5px
     padding 0.5rem
+    margin 0 auto
     .node-content
       display flex
       box-shadow 0 0 1px 0 #A1BFFC
