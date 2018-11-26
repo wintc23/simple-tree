@@ -164,11 +164,17 @@ export default {
     },
     showNode () {
       if (!this.splitPage) return true
-      if (this.showPageList.length) {
-        if (this.showPageList.includes(this.nodeData.id)) {
+      let list = this.showPageList
+      if (list.length) {
+        if (list.includes(this.nodeData[this.props.id])) {
           return true
-        } else if (this.showPageList[this.showPageList.length - 1] === this.parentData.id) {
+        } else if (list[list.length - 1] === this.parentData[this.props.id]) {
           return true
+        } else if (list.length >= 2 && list[list.length - 2] === this.parentData[this.props.id]) {
+          let node = this.tree.getShowNode()
+          if (node && (!node[this.props.children] || !node[this.props.children].length)) {
+            return true
+          }
         }
         return false
       } else {
@@ -178,8 +184,9 @@ export default {
     },
     showChildOnly () {
       if (!this.showNode) return false
-      if (this.showPageList.includes(this.nodeData.id)) {
-        return true
+      if (this.showPageList.includes(this.nodeData[this.props.id])) {
+        if (this.nodeData[this.props.children] && this.nodeData[this.props.children].length) return true
+        return false
       }
       return false
     }

@@ -255,14 +255,19 @@ export default {
       return level + 1
     },
     pushToShow (data) {
-      if (this.showPageList.includes(data.id)) return
-      this.showPageList.push(data.id)
+      if (this.showPageList.includes(data[this.props.id])) return
+      this.showPageList.push(data[this.props.id])
       this.refreshShowPage && this.refreshShowPage(this.getShowList())
     },
     jumpBack (id) {
-      let idx = this.showPageList.indexOf(id)
+      let idx = -1
+      if (id) {
+        idx = this.showPageList.indexOf(id)
+      }
       if (idx !== -1) {
         this.showPageList.splice(idx + 1)
+      } else {
+        this.showPageList = []
       }
       this.refreshShowPage && this.refreshShowPage(this.getShowList())
     },
@@ -270,7 +275,7 @@ export default {
       let list = []
       let dataList = this.treeData
       for (let id of this.showPageList) {
-        let item = dataList.find(data => data.id === id)
+        let item = dataList.find(data => data[this.props.id] === id)
         if (item) {
           list.push({
             title: item[this.props.title],
@@ -282,6 +287,19 @@ export default {
         }
       }
       return list
+    },
+    getShowNode () {
+      let dataList = this.treeData
+      let item
+      for (let id of this.showPageList) {
+        item = dataList.find(data => data[this.props.id] === id)
+        if (item) {
+          dataList = item[this.props.children] || []
+        } else {
+          return null
+        }
+      }
+      return item
     },
     registerObserver () {
       let MutationObserver = window.MutationObserver || window.WebKitMutationObserver || window.MozMutationObserver

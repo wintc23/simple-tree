@@ -1,16 +1,17 @@
 <template>
   <div id="app">
-    <HelloWorld/>
+    <!-- <HelloWorld/> -->
+    <router-view></router-view>
   </div>
 </template>
 
 <script>
-import HelloWorld from './samples/HelloWorld.vue'
+// import HelloWorld from './samples/HelloWorld.vue'
 
 export default {
   name: 'app',
   components: {
-    HelloWorld
+    // HelloWorld
   }
 }
 </script>
@@ -22,6 +23,9 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
+  height: 100%;
+}
+html, body {
+  height: 100%;
 }
 </style>
