@@ -3,8 +3,8 @@ import App from './App.vue'
 import { Icon, Modal, Input } from 'iview'
 import 'iview/dist/styles/iview.css'
 import router from '@/router'
-import simpleTree from '@/components/simple-tree'
 
+import { simpleTree } from '@/components/index'
 Vue.component('simple-tree', simpleTree)
 
 Vue.component('Icon', Icon)

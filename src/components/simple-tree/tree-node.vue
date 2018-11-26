@@ -21,8 +21,8 @@
       @dbclick="contentDoubleClick">
       <div class="expand-button" @click.stop="clickExpand" v-if="expand">
         <template v-if="nodeData[props.children] && nodeData[props.children].length">
-          <Icon type="ios-arrow-dropdown" v-if="expanded"/>
-          <Icon type="ios-arrow-dropright" v-else/>
+          <simple-icon type="ios-arrow-dropdown" v-if="expanded"/>
+          <simple-icon type="ios-arrow-dropright" v-else/>
         </template>
         <template v-else>
           <div class="expand-dot"></div>
@@ -99,6 +99,9 @@
 </template>
 
 <script>
+import { Icon } from 'iview'
+import 'iview/dist/styles/iview.css'
+
 export default {
   name: 'tree-node',
   props: {
@@ -141,7 +144,8 @@ export default {
             : <div>{data[parent.props.title]}</div>
         )
       }
-    }
+    },
+    'simple-icon': Icon
   },
   computed: {
     canBeDrag () {
