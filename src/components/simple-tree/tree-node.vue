@@ -76,7 +76,7 @@
       }"
       :style="childrenStyle"
       v-if="(nodeData[props.children] && nodeData[props.children].length)"
-      v-show="showNode || expanded">
+      v-show="showNode && expanded">
       <tree-node
         v-for="(child, idx) of nodeData[props.children]"
         :key="idx"
