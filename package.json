@@ -19,7 +19,7 @@
     "build": "vue-cli-service build",
     "build-bundle": "vue-cli-service build --target lib --name lib/simple-tree ./src/components/index.js",
     "lint": "vue-cli-service lint",
-    "prepublishOnly": "yarn build-bundle"
+    "prepublishOnly": "git push && yarn build-bundle"
   },
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
