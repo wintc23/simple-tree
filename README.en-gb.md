@@ -131,6 +131,19 @@ Notice: if _indentLimit_ < 100, this prop will be regarded as percentage. In thi
 
 The indent width of each level will be _value_ / _levels_.
 
+#### splitPage <font color="yellow">[Boolean]</font>
+This prop is used to control whether the show style is split-page or not, with a default value _false_.
+
+#### refreshPage <font color="yellow">[callback]</font>
+A callback function will be called that when the show node changes. And the arguments will be a list which contains all the root nodes' brief information like { id: xxx, title: xxx }.
+
+### Tree methods
+
+| methods | introduce | args |
+| --- | --- | --- |
+| pushToShow | Used in _split-page_ mode, and call this function to show the children of the node you give | nodeData |
+| jumpBack | Used in _split-page_ mode, and call this function to back to a root node of current node | the id of the node |
+
 #
 
 ### Tree events

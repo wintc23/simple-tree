@@ -138,9 +138,10 @@ export default {
         const tree = parent.tree
         const data = parent.nodeData
         const parentData = parent.parentData
+        const level = parent.level
         return (
           tree.$scopedSlots.default
-            ? tree.$scopedSlots.default({ data, parentData })
+            ? tree.$scopedSlots.default({ data, parentData, level })
             : <div>{data[parent.props.title]}</div>
         )
       }

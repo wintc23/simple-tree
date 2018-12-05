@@ -65,12 +65,20 @@ import 'simple-vue-tree/dist/lib/simple-tree.css'
 | indentLine | 控制缩进竖线的显示以及颜色 | Boolean / Array | false | 可以同过传入一个数组来循环控制每一层缩进的颜色，或者设置该值为true启用默认数组['red', 'green', 'blue] |
 | indentLimit | 最大缩进距离 | Number | - | 设置这个值来控制最深层数相对根节点的最大缩进距离，每一层的缩进距离为indentLimit/层数。在层数很多的时候，这个属性对于控制布局非常有用，它能自动调整每一层的缩进距离。值得注意的是，如果该值在100以内，将会按照百分比计算最大缩进距离，100以上则以像素为单位。 |
 | maxIndent | 每一层最大缩进距离 | Number | 20 | 在宽度足够的情况下每一层的最大缩进距离，通常可以不用设置 |
+| splitPage | 分页显示，将每一层级的数据单独显示 | Boolean | false | |
+| refreshPage | 分页显示时获取显示当前显示节点的递归路径的回调函数 | Function | 无 | 回调参数为一个数组，数组中的每一项为一个节点的简单数据（并非数据的引用），仅有id和title两个字段 {id: xxx, title: xxx} |
+
+#### methods
+| methods | 说明 | 参数 |
+| ---- | ---- | ---- |
+| pushToShow | 分页显示时调用，传入节点数据，表示展示该节点的子级；如果没有子级，将会停留在当前层级 | 节点数据data |
+| jumpBack | 分页显示时调用，传入当前节点递归路径中某一个节点的id，表示展示该id对应节点的下一级 | 节点id |
 
 #### 节点内容自定义
-使用功能强大的slot-scope插槽，可访问节点的数据nodeData以及其父节点数据parentData, 可以使用这个功能给每一个节点添加菜单、定制样式等：
+使用功能强大的slot-scope插槽，可访问节点的层级level, 数据nodeData以及其父节点数据parentData, 可以使用这个功能给每一个节点添加菜单、定制样式等：
 ```
 <simple-tree :treeData="treeData">
-  <div slot-scope="{ parentData, data }">
+  <div slot-scope="{ parentData, data, level }">
     {{ data.title }}
   <div>
 </simple-tree>

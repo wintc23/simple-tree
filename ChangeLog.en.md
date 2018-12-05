@@ -1,4 +1,9 @@
 # Change Log
+#2.2.2
+- Now you can get the level of the node when use the customized node slot.
+
+#2.0.0
+- Now you can split each layer to a single page with prop _splitPage_.
 
 ## v1.1.6
 - Fix bug.
