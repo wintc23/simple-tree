@@ -1,5 +1,8 @@
 # Change Log
-#2.2.2
+#2.0.3
+- Fix drag Bug that a node can be drag when the prop draggable is false.
+
+#2.0.2
 - Now you can get the level of the node when use the customized node slot.
 
 #2.0.0

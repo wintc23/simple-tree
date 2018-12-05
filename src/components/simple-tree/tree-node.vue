@@ -30,7 +30,7 @@
       </div>
       <div class="node-render">
         <div
-          v-if="dragHover && this.dragInfo.before"
+          v-if="draggable && dragHover && this.dragInfo.before"
           class="node-drag-helper">
           <div
             :class="{
@@ -44,7 +44,7 @@
         </div>
         <node-content class="node-render-content"></node-content>
         <div
-          v-if="dragHover && (this.dragInfo.after || this.dragInfo.inner)"
+          v-if="draggable && dragHover && (this.dragInfo.after || this.dragInfo.inner)"
           class="node-drag-helper">
           <div
             :class="{
