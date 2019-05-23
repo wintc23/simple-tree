@@ -15,6 +15,7 @@
       :splitPage="splitPage"
       :splitInfo="splitInfo"
       :showPageList="showPageList"
+      :isExpand="isExpand"
       :async="async"
       :key="idx">
     </tree-node>
@@ -43,6 +44,9 @@ export default {
     expand: {
       type: Boolean,
       default: true
+    },
+    isExpand: {
+      type: Function
     },
     allowDrop: {
       type: Function,

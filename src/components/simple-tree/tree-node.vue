@@ -76,7 +76,7 @@
       }"
       :style="childrenStyle"
       v-if="(nodeData[props.children] && nodeData[props.children].length)"
-      v-show="showNode && expanded">
+      v-show="showChildren">
       <tree-node
         v-for="(child, idx) of nodeData[props.children]"
         :key="idx"
@@ -92,6 +92,7 @@
         :splitPage="splitPage"
         :showPageList="showPageList"
         :dragNote="dragNote"
+        :isExpand="isExpand"
         :props="props">
       </tree-node>
     </div>
@@ -129,7 +130,8 @@ export default {
     splitPage: Boolean,
     splitInfo: Object,
     async: Boolean,
-    showPageList: Array
+    showPageList: Array,
+    isExpand: Function
   },
   components: {
     'node-content': {
@@ -149,6 +151,10 @@ export default {
     'simple-icon': Icon
   },
   computed: {
+    showChildren () {
+      if (this.isExpand) return this.isExpand(this.nodeData)
+      return this.showNode && this.expanded
+    },
     canBeDrag () {
       return this.draggable && this.allowDrag && this.allowDrag(this.nodeData)
     },
